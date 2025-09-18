@@ -1,0 +1,31 @@
+conta snowflake
+
+login
+alecesar27
+senha
+Alan2009270373
+https://djfcewn-fh77611.snowflakecomputing.com
+https://app.snowflake.com/djfcewn/fh77611/#/homepage
+
+Streamlit communit
+
+conta alecesar27
+https://share.streamlit.io/
+https://share.streamlit.io/?aliId=eyJpIjoiYUxDYjR1RDZSYk5vOXdVcSIsInQiOiJPeUZNUXUyYVwvY1hnNnVDY21hTnFGZz09In0%253D
+
+
+criar um ambiente virtual
+
+python -m venv venv
+
+
+
+echo "# vendas" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/alecesar27/vendas.git
+git push -u origin main
+
+

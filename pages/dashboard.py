@@ -78,8 +78,8 @@ with tab1:
     
     if balance_df is not None:
         fig = px.histogram(balance_df, x='C_ACCTBAL', y='COUNT', 
-                         title="Distribuição de Saldos",
-                         labels={'C_ACCTBAL': 'Saldo', 'COUNT': 'Frequência'})
+                         title="Balance Distribution",
+                         labels={'C_ACCTBAL': 'Balance', 'COUNT': 'Frequency'},)
         st.plotly_chart(fig, use_container_width=True)
 
 with tab2:
@@ -95,8 +95,8 @@ with tab2:
     if top_customers_df is not None:
         fig = px.bar(top_customers_df, x='C_NAME', y='C_ACCTBAL',
                    color='C_NATIONKEY',
-                   title="Top 15 Clientes por Saldo",
-                   labels={'C_NAME': 'Cliente', 'C_ACCTBAL': 'Saldo', 'C_NATIONKEY': 'Região'})
+                   title="Top 15 Customers by Balance",
+                   labels={'C_NAME': 'CCustomer', 'C_ACCTBAL': 'Balance', 'C_NATIONKEY': 'Region'})
         st.plotly_chart(fig, use_container_width=True)
 
 with tab3:
@@ -126,15 +126,15 @@ with tab3:
 st.markdown("---")
 st.subheader("🔧 Query Builder")
 
-query_input = st.text_area(    "Digite sua query SQL:",
+query_input = st.text_area(    "Enter your SQL query",
     value="SELECT * FROM CUSTOMER LIMIT 10",
     height=100
 )
 
-if st.button("Executar Query Personalizada"):
+if st.button("Run Custom Query"):
     if query_input.strip():
         custom_df = snowflake_conn.execute_query(query_input)
         if custom_df is not None:
             st.dataframe(custom_df, use_container_width=True)
     else:
-        st.warning("Digite uma query válida.")
+        st.warning("Enter a valid query.")

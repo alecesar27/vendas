@@ -19,7 +19,7 @@ with st.form("config_form"):
     database = st.text_input("Database", value=os.getenv('SNOWFLAKE_DATABASE', 'SNOWFLAKE_SAMPLE_DATA'))
     schema = st.text_input("Schema", value=os.getenv('SNOWFLAKE_SCHEMA', 'TPCH_SF1'))
     
-    submitted = st.form_submit_button("Salvar e Testar Conexão")
+    submitted = st.form_submit_button("Save and Test Connection")
     
     if submitted:
         # Atualizar variáveis de ambiente
@@ -32,7 +32,7 @@ with st.form("config_form"):
         
         # Testar conexão
         if snowflake_conn.connect():
-            st.success("✅ Conexão bem-sucedida!")
+            st.success("✅ Connection successful!")
             
             # Salvar no .env
             with open('.env', 'w') as f:
@@ -43,12 +43,12 @@ with st.form("config_form"):
                 f.write(f"SNOWFLAKE_DATABASE={database}\n")
                 f.write(f"SNOWFLAKE_SCHEMA={schema}\n")
         else:
-            st.error("❌ Falha na conexão. Verifique as credenciais.")
+            st.error("❌ Connection failed. Please check your credentials.")
 
     # Exemplo de queries
-if st.button("Testar Queries de Exemplo"):
+if st.button("Test Example Queries"):
     if snowflake_conn.connect():
-        st.subheader("📋 Exemplos de Consultas")
+        st.subheader("📋 Query Examples")
         
         # Query 1: Tabelas disponíveis
         tables_query = """
@@ -60,12 +60,12 @@ if st.button("Testar Queries de Exemplo"):
         
         tables_df = snowflake_conn.execute_query(tables_query)
         if tables_df is not None:
-            st.write("**Tabelas no schema:**")
+            st.write("**Tables in the schema:**")
             st.dataframe(tables_df)
         
         # Query 2: Dados de clientes
         customers_query = "SELECT * FROM CUSTOMER LIMIT 10"
         customers_df = snowflake_conn.execute_query(customers_query)
         if customers_df is not None:
-            st.write("**Dados de clientes:**")
+            st.write("**Customer data:**")
             st.dataframe(customers_df)

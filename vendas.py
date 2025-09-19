@@ -9,12 +9,12 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.title("📦 Dashboard de Vendas E-commerce")
+st.title("📦 Sales Dashboard ")
 st.markdown("---")
 
 # Sidebar para upload ou seleção de arquivos
-st.sidebar.title("Navegação")
-st.sidebar.info("Explore os dados de vendas e clientes")
+st.sidebar.title("Navigation")
+st.sidebar.info("Explore sales and customer data")
 
 # Carregar dados
 @st.cache_data
@@ -26,15 +26,15 @@ def load_data():
 vendas, customers = load_data()
 
 # Filtros interativos
-st.sidebar.header("Filtros")
+st.sidebar.header("Filters")
 region = st.sidebar.multiselect(
-    "Região do Cliente",
+    "Customer Region",
     options=customers["customer_region"].unique(),
     default=customers["customer_region"].unique()
 )
 
 category = st.sidebar.multiselect(
-    "Categoria do Produto",
+    "Category by Product",
     options=vendas["category"].unique(),
     default=vendas["category"].unique()
 )
@@ -46,28 +46,28 @@ filtered_vendas = vendas[
 ]
 
 # KPIs
-st.subheader("📊 Indicadores")
+st.subheader("📊 Indicadtors")
 col1, col2, col3 = st.columns(3)
-col1.metric("Total de Vendas", f"R$ {filtered_vendas['total_price'].sum():,.2f}")
-col2.metric("Pedidos", f"{filtered_vendas['order_id'].nunique()}")
-col3.metric("Clientes", f"{filtered_vendas['customer_id'].nunique()}")
+col1.metric("Total Sales", f"R$ {filtered_vendas['total_price'].sum():,.2f}")
+col2.metric("Orders", f"{filtered_vendas['order_id'].nunique()}")
+col3.metric("Customers", f"{filtered_vendas['customer_id'].nunique()}")
 
 st.markdown("---")
 
 # Tabela de vendas filtrada
-st.header("📝 Tabela de Vendas")
+st.header("📝 Sales Table")
 st.dataframe(filtered_vendas.head(50))
 
 # Gráfico de vendas por categoria
-st.header("📈 Vendas por Categoria")
+st.header("📈 Sales by Category")
 vendas_categoria = filtered_vendas.groupby("category")["total_price"].sum().sort_values(ascending=False)
 st.bar_chart(vendas_categoria)
 
 # Gráfico de vendas por região
-st.header("🌎 Vendas por Região")
+st.header("🌎 Region Sales")
 vendas_regiao = filtered_vendas.groupby("customer_region")["total_price"].sum().sort_values(ascending=False)
 st.bar_chart(vendas_regiao)
 
 # Exibir tabela de clientes
-with st.expander("👥 Ver tabela de clientes"):
+with st.expander("👥 Expand clients table"):
     st.dataframe(customers)

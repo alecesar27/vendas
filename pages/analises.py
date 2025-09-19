@@ -3,18 +3,18 @@ import plotly.express as px
 import plotly.graph_objects as go
 from utils.connector import SnowflakeConnector, get_cached_query
 
-st.set_page_config(page_title="Análises", page_icon="📈", layout="wide")
+st.set_page_config(page_title="Analisys", page_icon="📈", layout="wide")
 
-st.title("📈 Análises Avançadas")
+st.title("📈 Advanced Análisys")
 st.markdown("---")
 snowflake_conn = SnowflakeConnector()
 
 if not snowflake_conn.connect():
-    st.error("⚠️ Configure primeiro as credenciais")
+    st.error("⚠️ Configure credentials first")
     st.stop()
 
 # Análise de vendas por região
-st.header("💰 Vendas por Região")
+st.header("💰 Sales by Region")
 
 sales_query = """
 SELECT 
@@ -37,18 +37,18 @@ if sales_df is not None:
     with col1:
         # Gráfico de barras
         fig1 = px.bar(sales_df, x='REGION', y='TOTAL_SALES',
-                    title='Vendas Totais por Região',
-                    labels={'REGION': 'Região', 'TOTAL_SALES': 'Vendas Totais'})
+                    title='Total Sales by Region',
+                    labels={'REGION': 'Region', 'TOTAL_SALES': 'Total Sales'})
         st.plotly_chart(fig1, width=True)
     
     with col2:
         # Gráfico de pizza
         fig2 = px.pie(sales_df, values='TOTAL_SALES', names='REGION',
-                     title='Distribuição de Vendas por Região')
+                     title='Sales Distribution by Region')
         st.plotly_chart(fig2, width=True)
 
 # Análise temporal
-st.header("📅 Tendência Temporal")
+st.header("📅 Temporal Trend")
 
 time_query = """
 SELECT 
@@ -64,12 +64,12 @@ time_df = get_cached_query(snowflake_conn, time_query)
 
 if time_df is not None:
     fig3 = px.line(time_df, x='ORDER_MONTH', y='MONTHLY_SALES',
-                  title='Evolução Mensal de Vendas',
-                  labels={'ORDER_MONTH': 'Mês', 'MONTHLY_SALES': 'Vendas'})
+                  title='Monthly Sales Evolution',
+                  labels={'ORDER_MONTH': 'Month', 'MONTHLY_SALES': 'Sales'})
     st.plotly_chart(fig3, width=True)
 
 # Análise de correlação
-st.header("🔗 Correlações")
+st.header("🔗 Correlations")
 
 correlation_query = """
 SELECT 
@@ -87,13 +87,13 @@ correlation_df = get_cached_query(snowflake_conn, correlation_query)
 if correlation_df is not None:
     fig4 = px.scatter(correlation_df, x='CUSTOMER_BALANCE', y='AVG_ORDER_VALUE',
                      size='ORDER_COUNT', hover_data=['ORDER_COUNT'],
-                     title='Relação: Saldo vs Valor Médio do Pedido',
-                     labels={'CUSTOMER_BALANCE': 'Saldo do Cliente', 
-                            'AVG_ORDER_VALUE': 'Valor Médio do Pedido'})
+                     title='Relationship: Balance vs Average Order Value',
+                     labels={'CUSTOMER_BALANCE': 'Customer Balance', 
+                            'AVG_ORDER_VALUE': 'Average Order Value'})
     st.plotly_chart(fig4, width='stretch')
 
 # Painel de métricas avançadas
-st.header("📊 KPIs Avançados")
+st.header("📊 Advanced KPIs")
 
 kpi_col1, kpi_col2, kpi_col3, kpi_col4 = st.columns(4)
 
@@ -110,7 +110,7 @@ JOIN CUSTOMER c ON o.O_CUSTKEY = c.C_CUSTKEY
 kpi_df = get_cached_query(snowflake_conn, kpi_query)
 
 if kpi_df is not None:
-    kpi_col1.metric("Clientes Únicos", f"{kpi_df['TOTAL_CUSTOMERS'].iloc[0]:,}")
-    kpi_col2.metric("Total Pedidos", f"{kpi_df['TOTAL_ORDERS'].iloc[0]:,}")
-    kpi_col3.metric("Receita Total", f"${kpi_df['TOTAL_REVENUE'].iloc[0]:,.2f}")
-    kpi_col4.metric("Ticket Médio", f"${kpi_df['AVG_ORDER_VALUE'].iloc[0]:,.2f}")
+    kpi_col1.metric("Unique Clients", f"{kpi_df['TOTAL_CUSTOMERS'].iloc[0]:,}")
+    kpi_col2.metric("Total Orders", f"{kpi_df['TOTAL_ORDERS'].iloc[0]:,}")
+    kpi_col3.metric("Total Revenue", f"${kpi_df['TOTAL_REVENUE'].iloc[0]:,.2f}")
+    kpi_col4.metric("Medium Ticket", f"${kpi_df['AVG_ORDER_VALUE'].iloc[0]:,.2f}")

@@ -23,7 +23,7 @@ class SnowflakeConnector:
             )
             return True
         except Exception as e:
-            st.error(f"Erro na conexão: {str(e)}")
+            st.error(f"Connection error {str(e)}")
             return False
     
     def execute_query(self, query):
@@ -42,7 +42,7 @@ class SnowflakeConnector:
             return df
             
         except Exception as e:
-            st.error(f"Erro na query: {str(e)}")
+            st.error(f"Error in query: {str(e)}")
             return None
     
     def close(self):

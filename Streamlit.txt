@@ -11,8 +11,7 @@ Streamlit communit
 
 conta alecesar27
 https://share.streamlit.io/
-https://share.streamlit.io/?aliId=eyJpIjoiYUxDYjR1RDZSYk5vOXdVcSIsInQiOiJPeUZNUXUyYVwvY1hnNnVDY21hTnFGZz09In0%253D
-
+https://vendas-jbm5dxjgypixaabrz2auuw.streamlit.app/
 
 criar um ambiente virtual
 
@@ -27,5 +26,5 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/alecesar27/vendas.git
 git push -u origin main
-
+caso não consiga usar git push -u origin main --force
 

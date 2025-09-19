@@ -46,7 +46,7 @@ filtered_vendas = vendas[
 ]
 
 # KPIs
-st.subheader("📊 Indicadtors")
+st.subheader("📊 Indicators")
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Sales", f"R$ {filtered_vendas['total_price'].sum():,.2f}")
 col2.metric("Orders", f"{filtered_vendas['order_id'].nunique()}")

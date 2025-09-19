@@ -1,4 +1,4 @@
-#!D:\Projetos\Streamlit\venv\Scripts\python.exe
+#!D:\Projetos\Streamlit\venv\Scripts\python3.exe
 
 import sys
 import json

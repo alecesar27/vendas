@@ -5,7 +5,7 @@ from utils.connector import SnowflakeConnector, get_cached_query
 
 st.set_page_config(page_title="Analisys", page_icon="📈", layout="wide")
 
-st.title("📈 Advanced Análisys")
+st.title("📈 Advanced Analisys")
 st.markdown("---")
 snowflake_conn = SnowflakeConnector()
 

@@ -3,15 +3,15 @@ import pandas as pd
 import plotly.express as px
 from utils.connector import SnowflakeConnector, get_cached_query
 st.set_page_config(page_title="Dashboard", page_icon="📊", layout="wide")
-st.title("📊 Dashboard Interativo")
+st.title("📊 Interactive dashboard")
 st.markdown("---")
 snowflake_conn = SnowflakeConnector()
 # Verificar conexão
 if not snowflake_conn.connect():
-    st.error("⚠️ Configure primeiro as credenciais na página de Configuração")
+    st.error("⚠️ First configure the credentials on the configuration page")
     st.stop()
 # Filtros na sidebar
-st.sidebar.header("🔍 Filtros")
+st.sidebar.header("🔍 Filters")
 
 # Filtro de região
 region_query = "SELECT DISTINCT C_NATIONKEY FROM CUSTOMER"
@@ -20,13 +20,13 @@ regions = regions_df['C_NATIONKEY'].tolist() if regions_df is not None else []
 selected_region = st.sidebar.selectbox("Selecione a região:", options=regions)
 
 # Filtro de valor mínimo
-min_balance = st.sidebar.slider("Saldo Mínimo:", min_value=0, max_value=10000, value=1000)
+min_balance = st.sidebar.slider("Minimum Balance:", min_value=0, max_value=10000, value=1000)
 
 
 # Layout principal
 col1, col2 = st.columns([2, 1])
 with col1:
-    st.subheader("📈 Métricas Principais")
+    st.subheader("📈 Main Metrics")
     
     # Métricas em cards
     metric_col1, metric_col2, metric_col3 = st.columns(3)
@@ -53,18 +53,18 @@ with col1:
         metric_col3.metric("Saldo Total", f"${total_balance:,.2f}")
 
 with col2:
-    st.subheader("💡 Informações")
+    st.subheader("💡 Information")
     st.info("""
-    Dados provenientes do dataset 
-    **TPCH_SF1** do Snowflake.
-    Use os filtros para explorar os dados.
+    Data from dataset 
+    **TPCH_SF1** from Snowflake.
+    Use filters to explore data.
     """)
 
 # Gráficos
 st.markdown("---")
-st.subheader("📊 Visualizações")
+st.subheader("📊 Views")
 
-tab1, tab2, tab3 = st.tabs(["Distribuição", "Top Clientes", "Análise Detalhada"])
+tab1, tab2, tab3 = st.tabs(["Distribution", "Top Customers", "Detailed Analisys"])
 
 with tab1:
     # Gráfico de distribuição de saldos

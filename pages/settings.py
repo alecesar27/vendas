@@ -3,14 +3,14 @@ import os
 from dotenv import load_dotenv
 from utils.connector import SnowflakeConnector
 
-st.set_page_config(page_title="Configuração", page_icon="⚙️")
+st.set_page_config(page_title="Settings", page_icon="⚙️")
 
-st.title("⚙️ Configuração do Snowflake")
+st.title("⚙️ Snowflake Settings")
 snowflake_conn = SnowflakeConnector()
 
 # Formulário de configuração
 with st.form("config_form"):
-    st.subheader("Credenciais do Snowflake")
+    st.subheader("Snowflake Credentials")
     
     account = st.text_input("Account", value=os.getenv('SNOWFLAKE_ACCOUNT', ''))
     user = st.text_input("User", value=os.getenv('SNOWFLAKE_USER', ''))
